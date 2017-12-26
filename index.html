@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		body{
+			overflow:hidden;
+		}
+		.main{
+			position: fixed;
+			left:0;
+			top:0;
+			width: 1400px;
+			height: 800px;
+			background:rgba(0,0,0,0.3);
+		}
+		.banner{
+			margin:160px auto;
+			background: skyblue;
+			width: 300px;
+			height: 200px;
+			border-radius: 8px;
+		}
+		.title{
+			width: 100%;
+			text-align: center;
+			padding-top: 30px;
+			color: white;
+			font-size: 26px;
+		}
+		.left{
+			width: 50%;
+			float: left;
+			text-align: center;
+			margin-top:70px;
+			color: white;
+		}
+		.right{
+			width: 50%;
+			float: right;
+			text-align: center;
+			margin-top:70px;
+			color: white;
+		}
+	</style>
+</head>
+<body>
+	<div class="box" id="box">	
+		<button id="btn">点我有弹框</button>
+	</div>
+
+	<script>
+		function Mode (obj) {
+			this.obj=obj;
+			this.HasClass(),
+			this.Show();
+		}
+		Mode.prototype = {
+			constructor:Mode,
+			Show:function(){
+				this.Click();
+			},
+			HasClass:function(){
+				this.btn=document.getElementById('btn');
+				this.box=document.getElementById('box');
+			},
+			Click:function(){
+				var that=this;
+				this.btn.onclick=function(){
+					that.Json();
+					that.main.innerHTML+=`<div class='banner'></div>`;
+					that.title=document.createElement('p');
+					that.left=document.createElement('span');
+					that.right=document.createElement('span');
+					that.title.className='title';
+					that.left.className='left';
+					that.right.className='right';
+					that.title.innerHTML=that.obj.title;
+					that.left.innerHTML=that.obj.left;
+					that.right.innerHTML=that.obj.right;
+					that.main.firstChild.appendChild(that.title)
+					that.main.firstChild.appendChild(that.left)
+                    that.main.firstChild.appendChild(that.right)
+
+	                    that.left.onclick=function(){
+							that.box.removeChild(that.main)
+						}
+						that.right.onclick=function(){
+							location.href='www.baidu.com'
+						}
+				}
+				
+			},
+			Json:function(){
+				this.main=document.createElement('div');
+				this.main.className='main';
+				this.box.appendChild(this.main)
+			}
+		}
+		new Mode({
+			btn:'btn',
+			box:'box',
+			title:'点我有弹框',
+			left:'取消',
+			right:'确认',
+		})
+	</script>
+</body>
+</html>
